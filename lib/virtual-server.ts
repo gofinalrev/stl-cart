@@ -1,11 +1,16 @@
-const MIN_LATENCY_MS = 200
-const MAX_LATENCY_MS = 1500
-
-function randomLatency() {
-  return MIN_LATENCY_MS + Math.random() * (MAX_LATENCY_MS - MIN_LATENCY_MS)
-}
-
 export async function updateQuantity(id: string, quantity: number): Promise<number> {
-  await new Promise((resolve) => setTimeout(resolve, randomLatency()))
-  return quantity
+  const response = await fetch("/api/cart/quantity", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id, quantity }),
+  })
+
+  if (!response.ok) {
+    throw new Error("Failed to update quantity")
+  }
+
+  const data = (await response.json()) as { quantity: number }
+  return data.quantity
 }

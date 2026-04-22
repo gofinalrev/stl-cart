@@ -123,3 +123,26 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes click-ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0.4);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.4);
+    opacity: 0;
+  }
+}
+
+.click-ripple {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: 3px solid oklch(0.646 0.222 41.116);
+  background: oklch(0.646 0.222 41.116 / 0.25);
+  box-shadow: 0 0 12px 2px oklch(0.646 0.222 41.116 / 0.6);
+  transform: translate(-50%, -50%) scale(0.4);
+  animation: click-ripple 600ms ease-out forwards;
+}
